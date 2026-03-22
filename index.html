@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Simenda | Full-Stack Developer Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body { 
+      background: linear-gradient(135deg, #0f172a 0%, #1a2642 50%, #0f172a 100%);
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    nav h2 { 
+      color: #38bdf8;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    nav div { display: flex; gap: 2rem; }
+
+    nav a { 
+      color: #cbd5f5;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #38bdf8;
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    header .subtitle {
+      color: #38bdf8;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      color: #cbd5f5;
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.3s;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #000;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-outline {
+      border: 2px solid #38bdf8;
+      background: transparent;
+      color: #38bdf8;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-3px);
+      background: rgba(56, 189, 248, 0.1);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8 0%, transparent 100%);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      border-color: rgba(56, 189, 248, 0.5);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(30, 41, 59, 0.6) 100%);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2), 0 0 60px rgba(56, 189, 248, 0.1);
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+      object-fit: cover;
+      height: 200px;
+      transition: transform 0.4s;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #e2e8f0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card p {
+      color: #cbd5f5;
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      transition: all 0.3s;
+    }
+
+    .tag:hover {
+      background: rgba(56, 189, 248, 0.3);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #000;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+    }
+
+    .download-btn:active {
+      transform: translateY(-1px);
+    }
+
+    #skills {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+      border-radius: 20px;
+    }
+
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .skill-category {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .skill-category:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .skill-category h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #38bdf8;
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .skills-list span {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+      color: #e2e8f0;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .skills-list span:hover {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #contact {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+      border-radius: 20px;
+    }
+
+    .contact-content {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .contact-info {
+      color: #cbd5f5;
+      font-size: 1.1rem;
+      margin: 1.5rem 0;
+    }
+
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+      border: 2px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #38bdf8;
+    }
+
+    .contact-icon:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(56, 189, 248, 0.1);
+      margin-top: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+
+    @media(max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav div {
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      header {
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h2>JS</h2>
+  <div>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header>
+  <div class="subtitle">Welcome to my portfolio</div>
+  <h1>Jonathan Simenda</h1>
+  <p>Full-Stack Developer | Cybersecurity & Network Specialist | Software Engineer | ICT Specialist </p>
+  <p>Crafting elegant, secure, and scalable applications with modern technologies and best practices.</p>
+  <div class="cta-buttons">
+    <button class="btn btn-primary" onclick="scrollToSection('projects')">View My Work</button>
+  </div>
+</header>
+
+<section id="projects">
+  <h2>Featured Web Projects</h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Web Energy GIS Application</h3>
+        <div class="card-icon">⚡</div>
+      </div>
+      <img src="./Images/Screenshot (6).png" alt="Web Energy GIS Application" />
+        <p>Advanced renewable energy mapping tool using GIS technology to identify optimal solar and wind energy resource locations.</p>
+      <div class="card-tags">
+        <span class="tag">GIS</span>
+        <span class="tag">Mapping</span>
+        <span class="tag">Geoserver</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Online Citizen Participation Portal</h3>
+        <div class="card-icon">🅿️</div>
+      </div>
+      <img src="./Images/Screenshot (86).png" alt="Online Citizen Participation Portal" />
+      <p>Full-featured web-based permit tracking system with user authentication, real-time status updates, and administrative controls. Where citizens can request for permits and track their status until the application is processed.</p>
+      <div class="card-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Web</span>
+        <span class="tag">portal</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Citizen participation System</h3>
+        <div class="card-icon">⚖️</div>
+      </div>
+      <img src="./Images/Screenshot (83).png" alt="Citizen participation System" />
+      <p>A web-based platform for facilitating citizen engagement and participation in local governance processes.</p>
+      <div class="card-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Web</span>
+        <span class="tag">forum</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Project Management System</h3>
+        <div class="card-icon">🔗</div>
+      </div>
+      <img src="./Images/Screenshot (93).png" alt="Project Management System" />
+      <p>A comprehensive project management solution with task tracking, resource allocation, and team collaboration features.</p>
+      <div class="card-tags">
+      <div class="card-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Web</span>
+        <span class="tag">portal</span>
+      </div>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-header">
+        <h3>School Project Management Portal</h3>
+        <div class="card-icon">🎒</div>
+      </div>
+      <img src="./Images/Screenshot (90).png" alt="school Project Management System" />
+      <p>A web-based project management solution designed for educational institutions. where teachers and students can log on and view projects and track their progress assigned by Admin.</p>
+      <div class="card-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Web</span>
+        <span class="tag">portal</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Fix My Street</h3>
+        <div class="card-icon">🛠️</div>
+      </div>
+      <img src="./Images/Screenshot (92).png" alt="Fix My Street" />
+      <p>A web-based platform for reporting and tracking street maintenance issues in the community.</p>
+      <div class="card-tags">
+        <span class="tag">Community</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Web</span>
+        <span class="tag">portal</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>House Of Miracle Church Website</h3>
+        <div class="card-icon">⛪</div>
+      </div>
+      <img src="./Images/Screenshot (94).png" alt="House Of Miracle Church Website" />
+      <p>A Powerfull church website that church members and other visitors can use to access information about the church and its activities and be delivered by the holy spirit.</p>
+      <div class="card-tags">
+        <span class="tag">church</span>
+        <span class="tag">web</span>
+        <span class="tag">portal</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Constituency Participation Website</h3>
+        <div class="card-icon">💧</div>
+      </div>
+      <img src="./Images/Screenshot (2).png" alt="Constituency Participation Website" />
+      <p>A web-based platform for facilitating citizen engagement and participation in local governance processes for citizens within a constituency in mansa to be specific.</p>
+      <div class="card-tags">
+        <span class="tag">constituency</span>
+        <span class="tag">web</span>
+        <span class="tag">static</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Community Health Website</h3>
+        <div class="card-icon">❤️‍🩹</div>
+      </div>
+      <img src="./Images/Screenshot (3).png" alt="Community Health Website" />
+      <p>A web-based platform for providing community health information and resources to residents in collaboration with various community health providers.</p>
+      <div class="card-tags">
+        <span class="tag">Community</span>
+        <span class="tag">Health</span>
+        <span class="tag">web</span>
+        <span class="tag">static</span>
+      </div>
+    </div>
+        <div class="card">
+      <div class="card-header">
+        <h3>Java Quiz Web app</h3>
+        <div class="card-icon">❓</div>
+      </div>
+      <img src="./Images/Screenshot (4).png" alt="Java Quiz Web app" />
+      <p>A Quiz app that can be used to create questions by typing or import and provide a plartfom to answer the quiz.</p>
+      <div class="card-tags">
+        <span class="tag">Educational</span>
+        <span class="tag">web</span>
+        <span class="tag">Local database</span>
+      </div>
+    </div>
+        <div class="card">
+      <div class="card-header">
+        <h3>Web Calculator App</h3>
+        <div class="card-icon">🧮</div>
+      </div>
+      <img src="./Images/Screenshot (5).png" alt="Web Calculator App" />
+      <p>A web calculator to perfom various mathematical calculations.</p>
+      <div class="card-tags">
+              <span class="tag">Educational</span>
+        <span class="tag">web</span>
+        <span class="tag">static</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects-1">
+  <h2>Featured Mobile Projects</h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Maintenance Stores App</h3>
+        <div class="card-icon">📦</div>
+      </div>
+      <img src="./Images/Screenshot_20260319-223636.jpg" alt="Maintenance Stores App" />
+      <p>Comprehensive Android inventory management system with SQLite database for real-time tracking and storage optimization.</p>
+      <div class="card-tags">
+        <span class="tag">Android</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">Java</span>
+      </div>
+      <a href="./apps/MAINTENANCE STORES APP.apk" class="download-btn" onclick="downloadAPK(event)">⬇️ Download APK</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Dice Roller App</h3>
+        <div class="card-icon">🎲</div>
+      </div>
+      <img src="./Images/diceimage.png" alt="Dice Roller App" />
+      <p>A simple Android game app for rolling virtual dice and keeping track of rolls.</p>
+      <div class="card-tags">
+               <span class="tag">Android</span>
+        <span class="tag">Mobile</span>
+        <span class="tag">Java</span>
+      </div>
+       <a href="./apps/Jonathan simenda 2101337545-DICEROLLER.apk" class="download-btn" onclick="downloadAPK(event)">⬇️ Download APK</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Heath hHelper App</h3>
+        <div class="card-icon">🆘</div>
+      </div>
+      <img src="./Images/Screenshot_20260319-223045.jpg" alt="Heath Helper App" />
+      <p>A that shows a map view of near by health facilities, sends an SOS to a designated number, calculates Body mass index for users and features various health tips and quotes.</p>
+      <div class="card-tags">
+        <span class="tag">Android</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">Health</span>
+        <span class="tag">java</span>
+      </div>
+       <a href="./apps/Jonathan health Helper App.apk" class="download-btn" onclick="downloadAPK(event)">⬇️ Download APK</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Technical Skills</h2>
+  <div class="skills-container">
+    
+    <div class="skill-category">
+      <h3>🔧 Languages</h3>
+      <div class="skills-list">
+        <span>Java</span>
+        <span>PHP</span>
+        <span>JavaScript</span>
+        <span>html</span>
+        <span>css</span>
+        <span>python</span>
+        <span>MySQL</span>
+        <span>React</span>
+
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <h3>🗄️ Databases & Storage</h3>
+        <div class="skills-list">
+        <span>MySQL</span>
+        <span>SQLite</span>
+        <span>Firebase</span>
+        <span>SQL</span>
+        <span>Supabase</span>
+        <span>Geoserver</span>
+        <span>postgreSQL</span>
+         <span>MongoDB  
+        </span>
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <h3>📱 Platforms & Tools</h3>
+      <div class="skills-list">
+         <span>Android</span>
+        <span>GIS</span>
+        <span>Cybersecurity</span>
+        <span>Networking</span>
+        <span>Computer Forensics</span>
+        <span>REST APIs</span>
+        <span>Bootstrap</span>
+        <span>laravel</span>
+        <span>Apache</span>
+        <span>Data Protection and Recovery</span>
+        
+
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Get In Touch</h2>
+  <div class="contact-content">
+    <p class="contact-info">I'm always interested in new opportunities and exciting projects. Feel free to reach out!</p>
+    <center>
+    <div class="contact-">
+      <div class="contact-icon" title="Email" onclick="window.location.href='mailto:Jonathansimenda1@gmail.com'">Jonathansimenda1@gmail.com📩</div>
+      <br>
+      <div class="contact-icon" title="Phone" onclick="alert('Phone: +260 973177320')">Phone📱</div>
+      <br>
+      <div class="contact-icon" title="GitHub" onclick="window.open('https://github.com/JONATHAN-SIMENDA', '_blank')">GitHub💻</div>
+       <br>
+      <div class="contact-icon" title="LinkedIn" onclick="window.open('https://www.linkedin.com/in/jonathan-simenda-9556463a6', '_blank')">LinkedIn💼</div>
+    </div>
+</center>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Jonathan Simenda. Designed with ❤️ and built with modern web technologies.</p>
+</footer>
+
+<script>
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function downloadAPK(event) {
+  event.preventDefault();
+  const clickedLink = event.currentTarget;
+  const apkUrl = clickedLink.href;
+  if (apkUrl && apkUrl !== '#') {
+    const fileName = apkUrl.split('/').pop();
+    const link = document.createElement('a');
+    link.href = apkUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert('Download link not configured.');
+  }
+}
+
+// Observe elements for animations on scroll
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.card').forEach(card => {
+  card.style.opacity = '0';
+  observer.observe(card);
+});
+</script>
+
+</body>
+</html>
